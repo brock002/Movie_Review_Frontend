@@ -16,7 +16,6 @@ import {
 } from "@mui/material"
 import StarOutlineSharpIcon from "@mui/icons-material/StarOutlineSharp"
 import SendIcon from "@mui/icons-material/Send"
-import { color } from "@mui/system"
 
 const Movie = () => {
 	const [movie, setMovie] = useState({
