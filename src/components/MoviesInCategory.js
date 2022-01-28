@@ -14,7 +14,7 @@ const MoviesInCategory = () => {
 	useEffect(() => {
 		getCategory()
 		getMovies()
-	}, [])
+	}, [catID])
 
 	const getMovies = () => {
 		setIsLoading(true)

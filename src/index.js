@@ -18,6 +18,10 @@ const theme = createTheme({
 			main: "#faaf00",
 			contrastText: "#000",
 		},
+		white: {
+			main: "#fff",
+			contrastText: "#000",
+		},
 	},
 })
 

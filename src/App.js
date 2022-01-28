@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
+import invokeApi from "./apiCall"
 import AppNavBar from "./components/AppNavBar"
 import PopupToast from "./components/PopupToast"
 import Login from "./components/Login"
@@ -27,6 +28,59 @@ function App() {
 	// function to dismiss toast
 	const hideToast = () => {
 		setToast({ ...toast, visible: false })
+	}
+
+	useEffect(() => {
+		getAllCategories()
+		getAllMovies()
+		checkSessionUser()
+	}, [])
+
+	const checkSessionUser = () => {
+		let sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"))
+		if (sessionUser !== null) {
+			setIsLoggedIn(true)
+			setAuthResponse(sessionUser)
+		}
+	}
+
+	const getAllCategories = () => {
+		setIsLoading(true)
+		invokeApi({ method: "GET", url: "api/categories/" }, (res, status) => {
+			if (status) {
+				setCategories(res)
+			} else {
+				setToast({
+					...toast,
+					visible: true,
+					message: "Something went wrong..! Please refresh the page...",
+					type: "failure",
+				})
+			}
+			setIsLoading(false)
+		})
+	}
+
+	const getAllMovies = () => {
+		setIsLoading(true)
+		invokeApi({ method: "GET", url: "api/movies/" }, (res, status) => {
+			if (status) {
+				setMovies([
+					...res.map(item => {
+						item.rating = Math.round(item.rating * 10) / 10
+						return item
+					}),
+				])
+			} else {
+				setToast({
+					...toast,
+					visible: true,
+					message: "Something went wrong..! Please refresh the page...",
+					type: "failure",
+				})
+			}
+			setIsLoading(false)
+		})
 	}
 
 	return (

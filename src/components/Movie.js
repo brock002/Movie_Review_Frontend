@@ -33,7 +33,7 @@ const Movie = () => {
 
 	useEffect(() => {
 		getCurrentMovie()
-	}, [])
+	}, [movieId])
 
 	const getCurrentMovie = () => {
 		setIsLoading(true)

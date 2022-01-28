@@ -57,6 +57,7 @@ const Login = () => {
 						message: "You are now Logged In",
 						type: "success",
 					})
+					sessionStorage.setItem("sessionUser", JSON.stringify(res))
 					setLoginForm({ email: "", pass: "" })
 					navigate(-1)
 				} else if (
