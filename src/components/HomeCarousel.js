@@ -18,14 +18,18 @@ const HomeCarousel = () => {
 			<Row className='justify-content-center'>
 				<Carousel
 					itemsToScroll={1}
-					focusOnSelect={true}
 					itemsToShow={3}
 					enableAutoPlay
 					autoPlaySpeed={3000}
 					itemPadding={[0, 5]}
+					breakPoints={[
+						{ width: 1, itemsToShow: 1, focusOnSelect: true },
+						{ width: 750, itemsToShow: 2, focusOnSelect: false },
+						{ width: 1150, itemsToShow: 3, focusOnSelect: true },
+					]}
 				>
 					{movies.map((item, index) => (
-						<Card sx={{ width: 400 }}>
+						<Card key={index} sx={{ width: 400 }}>
 							<CardActionArea
 								as={Link}
 								to={`/movies/${item.movieId}`}
