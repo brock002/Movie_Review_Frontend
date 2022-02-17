@@ -1,8 +1,9 @@
-import { useContext } from "react"
-import { BaseContext } from "../App"
-import MovieCards from "./MovieCards"
-import CategoriesList from "./CategoriesList"
-import Loading from "./Loading"
+import { useContext } from 'react'
+import { BaseContext } from '../App'
+import MovieCards from './MovieCards'
+import CategoriesList from './CategoriesList'
+import Loading from './Loading'
+import HomeCarousel from './HomeCarousel'
 
 const Home = () => {
 	const { categories, movies, isLoading } = useContext(BaseContext)
@@ -14,7 +15,8 @@ const Home = () => {
 			) : (
 				<>
 					<CategoriesList categories={categories} />
-					<div className="my-3"></div>
+					<HomeCarousel />
+					<div className='my-3'></div>
 					<MovieCards movies={movies} />
 				</>
 			)}

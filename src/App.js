@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
-import invokeApi from "./apiCall"
-import AppNavBar from "./components/AppNavBar"
-import PopupToast from "./components/PopupToast"
-import Login from "./components/Login"
-import Home from "./components/Home"
-import Movie from "./components/Movie"
-import MoviesInCategory from "./components/MoviesInCategory"
-import { Row, Container } from "react-bootstrap"
+import React, { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import invokeApi from './apiCall'
+import AppNavBar from './components/AppNavBar'
+import PopupToast from './components/PopupToast'
+import Footer from './components/Footer'
+import Login from './components/Login'
+import Home from './components/Home'
+import Movie from './components/Movie'
+import MoviesInCategory from './components/MoviesInCategory'
+import { Row, Container } from 'react-bootstrap'
 
 export const BaseContext = React.createContext()
 
@@ -17,10 +18,10 @@ function App() {
 	const [authResponse, setAuthResponse] = useState({})
 	// alert toast
 	const [toast, setToast] = useState({
-		message: "",
+		message: '',
 		visible: false,
 		timeOut: 5000,
-		type: "success",
+		type: 'success',
 	})
 	const [categories, setCategories] = useState([])
 	const [movies, setMovies] = useState([])
@@ -37,7 +38,7 @@ function App() {
 	}, [])
 
 	const checkSessionUser = () => {
-		let sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"))
+		let sessionUser = JSON.parse(sessionStorage.getItem('sessionUser'))
 		if (sessionUser !== null) {
 			setIsLoggedIn(true)
 			setAuthResponse(sessionUser)
@@ -46,15 +47,16 @@ function App() {
 
 	const getAllCategories = () => {
 		setIsLoading(true)
-		invokeApi({ method: "GET", url: "api/categories/" }, (res, status) => {
+		invokeApi({ method: 'GET', url: 'api/categories/' }, (res, status) => {
 			if (status) {
 				setCategories(res)
 			} else {
 				setToast({
 					...toast,
 					visible: true,
-					message: "Something went wrong..! Please refresh the page...",
-					type: "failure",
+					message:
+						'Something went wrong..! Please refresh the page...',
+					type: 'failure',
 				})
 			}
 			setIsLoading(false)
@@ -63,10 +65,10 @@ function App() {
 
 	const getAllMovies = () => {
 		setIsLoading(true)
-		invokeApi({ method: "GET", url: "api/movies/" }, (res, status) => {
+		invokeApi({ method: 'GET', url: 'api/movies/' }, (res, status) => {
 			if (status) {
 				setMovies([
-					...res.map(item => {
+					...res.map((item) => {
 						item.rating = Math.round(item.rating * 10) / 10
 						return item
 					}),
@@ -75,8 +77,9 @@ function App() {
 				setToast({
 					...toast,
 					visible: true,
-					message: "Something went wrong..! Please refresh the page...",
-					type: "failure",
+					message:
+						'Something went wrong..! Please refresh the page...',
+					type: 'failure',
 				})
 			}
 			setIsLoading(false)
@@ -104,19 +107,19 @@ function App() {
 				<Row>
 					<AppNavBar />
 				</Row>
-				<Container style={{ marginTop: "5rem" }}>
+				<Container style={{ marginTop: '5rem' }}>
 					<Routes>
 						<Route index element={<Home />} />
-						<Route path="login" element={<Login />} />
-						<Route path="movies/:movieId" element={<Movie />} />
+						<Route path='login' element={<Login />} />
+						<Route path='movies/:movieId' element={<Movie />} />
 						<Route
-							path="category/:catID/movies"
+							path='category/:catID/movies'
 							element={<MoviesInCategory />}
 						/>
 						<Route
-							path="*"
+							path='*'
 							element={
-								<h3 style={{ margin: "1rem" }}>
+								<h3 style={{ margin: '1rem' }}>
 									Uh Oh!!! Something went Wrong!!!
 								</h3>
 							}
@@ -130,6 +133,7 @@ function App() {
 					timeOut={toast.timeOut}
 					hideToast={hideToast}
 				/>
+				<Footer />
 			</>
 		</BaseContext.Provider>
 	)
